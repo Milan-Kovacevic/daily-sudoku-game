@@ -1,0 +1,329 @@
+﻿<UserControl
+    x:Class="Sudoku.Views.OptionsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:local="clr-namespace:Sudoku.Views"
+    mc:Ignorable="d"
+    Height="650"
+    Width="500"
+    FontFamily="{DynamicResource MaterialDesignFont}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter
+            x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+    <Border
+        CornerRadius="0 0 8 8"
+        Background="{DynamicResource MaterialDesignPaper}">
+        <materialDesign:DialogHost
+            VerticalAlignment="Stretch"
+            CloseOnClickAway="True"
+            DialogTheme="Inherit"
+            IsOpen="{Binding IsDialogOpen}"
+            OverlayBackground="{DynamicResource SecondaryHueMidBrush}"
+            Placement="Center">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel
+                    Width="270"
+                    Margin="16">
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        FontSize="15"
+                        Margin="2 2 2 10"
+                        Text="{Binding DialogMessage}" />
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Button
+                            Margin="0 8 2 0"
+                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            Content="CLOSE"
+                            IsCancel="True"
+                            Style="{StaticResource MaterialDesignFlatButton}">
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="auto" />
+                    <RowDefinition
+                        Height="auto" />
+                    <RowDefinition
+                        Height="*" />
+                    <RowDefinition
+                        Height="auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel
+                    VerticalAlignment="Top"
+                    Margin="0 10"
+                    Grid.Row="1">
+                    <Image
+                        Margin="15 20 0 -4"
+                        Source="pack://application:,,,/Sudoku;component/Resources/DailySudoku-Icon.png"
+                        Width="120"
+                        Height="120"
+                        Stretch="UniformToFill" />
+                    <Label
+                        Content="Welcome back"
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        FontSize="38"
+                        Style="{DynamicResource MaterialDesignLabel}" />
+                    <Label
+                        Content="Practice and master your sudoku skills"
+                        HorizontalAlignment="Center"
+                        FontSize="16"
+                        FontStyle="Italic"
+                        Margin="0 -6 0 0"
+                        Style="{DynamicResource MaterialDesignLabel}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="2"
+                    Width="330"
+                    Margin="35 30 35 20">
+                    <Button
+                        Command="{Binding StartNewGameCommand}"
+                        materialDesign:ButtonAssist.CornerRadius="14"
+                        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoadingGame}"
+                        Height="40"
+                        FontSize="18"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Margin="0 0 8 0">
+                                <materialDesign:PackIcon.Style>
+                                    <Style
+                                        TargetType="materialDesign:PackIcon"
+                                        BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}">
+                                        <Setter
+                                            Property="Kind"
+                                            Value="ControllerCircleOutline" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsLoadingGame}"
+                                                Value="True">
+                                                <Setter
+                                                    Property="Kind"
+                                                    Value="ControllerCircleDown" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding NewGameText}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding LoginCommand}"
+                        materialDesign:ButtonAssist.CornerRadius="14"
+                        Height="40"
+                        Margin="0 12 0 0"
+                        FontSize="18"
+                        Style="{StaticResource MaterialDesignOutlinedButton}">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Margin="0 0 8 0"
+                                Kind="Login" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="Login" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding RegisterCommand}"
+                        materialDesign:ButtonAssist.CornerRadius="14"
+                        Height="40"
+                        Margin="0 12 0 0"
+                        FontSize="18"
+                        Style="{StaticResource MaterialDesignOutlinedButton}">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Margin="0 0 8 0"
+                                Kind="Register" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="Register" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        materialDesign:ButtonAssist.CornerRadius="14"
+                        Height="40"
+                        IsEnabled="{Binding IsUserLoggedIn}"
+                        Command="{Binding StandingsCommand}"
+                        Margin="0 12 0 0"
+                        FontSize="18"
+                        Style="{StaticResource MaterialDesignOutlinedSecondaryButton}">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Margin="0 0 8 0"
+                                Kind="ListBoxOutline" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="Standings" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        materialDesign:ButtonAssist.CornerRadius="14"
+                        Height="40"
+                        IsEnabled="{Binding IsUserLoggedIn}"
+                        Command="{Binding AccountInformationsCommand}"
+                        Margin="0 12 0 0"
+                        FontSize="18"
+                        Style="{StaticResource MaterialDesignOutlinedSecondaryButton}">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Margin="0 0 8 0"
+                                Kind="AccountCircleOutline" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="Account Informations" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <materialDesign:Card
+                    UniformCornerRadius="0"
+                    Grid.Row="3">
+                    <Grid
+                        Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="*" />
+                            <ColumnDefinition
+                                Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:Chip
+                            Height="70"
+                            Cursor="Arrow"
+                            HorizontalAlignment="Stretch"
+                            Margin="0 0 50 0"
+                            Grid.Column="0"
+                            ToolTip="Current User">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition
+                                        Height="auto" />
+                                    <RowDefinition
+                                        Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                        Width="auto" />
+                                    <ColumnDefinition
+                                        Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    Height="35"
+                                    IsHitTestVisible="False"
+                                    Margin="4 0 10 2"
+                                    Padding="0"
+                                    Style="{StaticResource MaterialDesignFlatSecondaryButton}"
+                                    Cursor="Arrow">
+                                    <materialDesign:PackIcon
+                                        Width="40"
+                                        Height="40">
+                                        <materialDesign:PackIcon.Style>
+                                            <Style
+                                                TargetType="materialDesign:PackIcon"
+                                                BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}">
+                                                <Setter
+                                                    Property="Kind"
+                                                    Value="Incognito" />
+                                                <Style.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding IsUserLoggedIn}"
+                                                        Value="True">
+                                                        <Setter
+                                                            Property="Kind"
+                                                            Value="User" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </materialDesign:PackIcon.Style>
+                                    </materialDesign:PackIcon>
+                                </Button>
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    FontSize="12"
+                                    FontStyle="Italic"
+                                    Margin="4 6 0 0"
+                                    Text="Playing as:"
+                                    Foreground="{DynamicResource SecondaryHueMidBrush}" />
+                                <Grid
+                                    Grid.Column="1"
+                                    Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                            Width="*" />
+                                        <ColumnDefinition
+                                            Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        Margin="0 0 0 2"
+                                        FontSize="18"
+                                        Content="{Binding PlayerName}"
+                                        Style="{DynamicResource MaterialDesignLabel}" />
+                                    <Button
+                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                        Command="{Binding LogoutCommand}"
+                                        Grid.Column="1"
+                                        Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Margin="4 -4 2 0"
+                                        Padding="4 2"
+                                        ToolTip="Logout"
+                                        Style="{StaticResource MaterialDesignFlatSecondaryButton}"
+                                        Height="32"
+                                        VerticalAlignment="Top">
+                                        <materialDesign:PackIcon
+                                            Kind="Logout"
+                                            Width="22"
+                                            Height="22" />
+                                    </Button>
+                                </Grid>
+
+                            </Grid>
+
+                        </materialDesign:Chip>
+                        <StackPanel
+                            Grid.Column="1"
+                            VerticalAlignment="Bottom">
+                            <CheckBox
+                                Content="{Binding CurrentTheme, Mode=OneWay}"
+                                IsChecked="{Binding IsDark}"
+                                Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}" />
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+        </materialDesign:DialogHost>
+    </Border>
+</UserControl>
