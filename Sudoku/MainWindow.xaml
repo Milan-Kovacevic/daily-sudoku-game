@@ -159,7 +159,8 @@
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
-        <ContentControl
+        <ContentPresenter
+            Validation.ErrorTemplate="{x:Null}"
             Grid.Row="1"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"

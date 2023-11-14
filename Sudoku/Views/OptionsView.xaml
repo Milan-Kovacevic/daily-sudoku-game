@@ -64,7 +64,7 @@
                     Grid.Row="1">
                     <Image
                         Margin="15 20 0 -4"
-                        Source="pack://application:,,,/Sudoku;component/Resources/DailySudoku-Icon.png"
+                        Source="../Resources/DailySudoku-Icon.png"
                         Width="120"
                         Height="120"
                         Stretch="UniformToFill" />
