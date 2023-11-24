@@ -48,7 +48,7 @@ namespace Sudoku
             sudokuGuessService = new SudokuGuessService(sudokuBoardStore);
             sudokuBoardService = new SudokuBoardService(sudokuBoardStore, sudokuPlayerStore);
             themeChangeService = new ThemeChangeService(selectedThemeStore);
-            sudokuPlayerService = new SudokuPlayerService(sudokuPlayerStore);
+            sudokuPlayerService = new SudokuPlayerService(sudokuPlayerStore, sudokuBoardStore);
             navigateToNewGameService = new NavigationService(navigationStore, CreateSudokuGameViewModel);
             navigateToOptionsService = new NavigationService(navigationStore, CreateOptionsViewModel);
             navigateToLoginService = new NavigationService(navigationStore, CreateLoginViewModel);
