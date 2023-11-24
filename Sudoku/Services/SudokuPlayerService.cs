@@ -14,10 +14,12 @@ namespace Sudoku.Services
         const string INVALID_LOGIN_CREDENTIALS_MESSAGE = "Login credentials are invalid";
         const string PLAYER_ALREADY_EXIST_MESSAGE = "Username is already taken";
         private readonly SudokuPlayerStore _sudokuPlayerStore;
+        private readonly SudokuBoardStore _sudokuBoardStore;
 
-        public SudokuPlayerService(SudokuPlayerStore sudokuPlayerStore)
+        public SudokuPlayerService(SudokuPlayerStore sudokuPlayerStore, SudokuBoardStore sudokuBoardStore)
         {
             _sudokuPlayerStore = sudokuPlayerStore;
+            _sudokuBoardStore = sudokuBoardStore;
         }
 
         public bool IsPlayerLoggedIn()
@@ -33,11 +35,13 @@ namespace Sudoku.Services
                 throw new Exception(INVALID_LOGIN_CREDENTIALS_MESSAGE);
 
             _sudokuPlayerStore.CurrentPlayer = player;
+            _sudokuBoardStore.CurrentBoard = null;
         }
 
         public void Logout()
         {
             _sudokuPlayerStore.CurrentPlayer = null;
+            _sudokuBoardStore.CurrentBoard = null;
         }
 
         public void Register(string username, string password, string displayName)

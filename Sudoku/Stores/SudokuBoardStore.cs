@@ -25,10 +25,8 @@ namespace Sudoku.Stores
             get => _currentBoard;
             set
             {
-                if (value == null)
-                    return;
                 _currentBoard = value;
-                if (_currentBoard.Grids.Count > 0)
+                if (_currentBoard != null && _currentBoard.Grids.Count > 0)
                     CurrentGrid = _currentBoard.Grids.ElementAt(0);
             }
         }
