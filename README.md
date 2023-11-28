@@ -1,5 +1,5 @@
 # Daily Sudoku
-**Simple desktop game with score tracking and player ranking.*
+*Simple desktop game with score tracking and player ranking.*
 
 ![sudoku1](https://github.com/Milan-Kovacevic/daily-sudoku-game/assets/93384395/3fb0718d-1721-4e33-894f-bc7be45f705e)
 
